@@ -63,15 +63,15 @@ mh_distance <- function(x,y){
     warning('y and x are not of the same type')
     return(-1)
   }
-  if(typeof(y)=="numeric"){
-    if(y %% 1!=0){
-      warning('y contains decimals')
+  if(is.numeric(x)){
+    if(x %% 1!=0){
+      warning('x contains decimals')
       return(-1)
     }
   }
-  if(typeof(x)=="numeric"){
-    if(x %% 1!=0){
-      warning('x contains decimals')
+  if(is.numeric(y)){
+    if(y %% 1!=0){
+      warning('y contains decimals')
       return(-1)
     }
   }
@@ -115,10 +115,6 @@ mh_distance(x,y)
 # I imagine this has to do with the different versions (server = 3.6.1, and local = 4.0.2)
 ```
 
-```{r}
-
-```
-
 
 
 ## Task 2
@@ -131,32 +127,48 @@ text in your final submission.
 
 **Initial test cases** (return non-negative modified Hamming distance)
 
-```{r eval=FALSE}
+```{r}
 mh_distance(x = "abc", y = "abc")
 mh_distance(x = T, y = FALSE)
 mh_distance(x = "523890", y = "752839")
 mh_distance(x = 2341, y = 2350)
+# These provide the output desired
 ```
 
 Added test cases that return a non-negative modified Hamming distance result.
 
 ```{r}
-# additional test cases go here
+mh_distance(x="toy",y="xan")
+mh_distance(x=T, y=TRUE)
+mh_distance(x=F, y=TRUE)
+mh_distance(x=10010,y=11111)
 ```
 
 **Initial test cases** (return values of `-1`)
 
-```{r eval=FALSE}
+```{r}
 mh_distance(x = 52, y = 113)
 mh_distance(x = "swimming", y = "winning")
 mh_distance(x = NA, y = TRUE)
 mh_distance(x = 1.5, y = 2.5)
+# I got one here, so my decimal check is not working
+# Switched from typeof(x)==numeric to is.numeric(x)
 ```
 
 Added test cases that return a value of `-1`.
 
 ```{r}
-# additional test cases go here
+mh_distance(x=as.complex(5),y=2)
+mh_distance(x=87, y="87")
+mh_distance(x=878, y=87)
+mh_distance(x=00010,y=11111)
+# Note that the last line gives an error.
+# In r if we assign 010 to an object, it will be stored as 10 not 010. 
+# I do not see this is a special case we need to treat
+# because this is a known property of R to be considered prior
+# to providing the arguments to the function.
+# In other words, you can't assign 00010 to x as a numeric no matter what.
+# one can use sprintf or formatC but these just convert to string type anyway.
 ```
 
 

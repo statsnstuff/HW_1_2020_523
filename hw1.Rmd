@@ -12,9 +12,11 @@ knitr::opts_chunk$set(echo = TRUE, commen = NA)
 ## Task 1
 
 ```{r mh_distance_function}
-x<-9
-y<-NA
+x<-"cal"
+y<-"cat"
+distance<-0
 options(warn=0)
+the_hamming_distance<-0
 mh_distance <- function(x,y){
   if(!is.atomic(x)){
     warning('x is not atomic')
@@ -85,7 +87,12 @@ mh_distance <- function(x,y){
     warning('x and y do not have the same number of digits or letters')
     return(-1)
   }
-  
+  for(i in seq_along(unlist_x_string_split)){
+    if(length(setdiff(unlist_x_string_split[i],unlist_y_string_split[i]))==1){
+      distance<-distance+1
+    }
+  }
+  return(distance)
 }
 mh_distance(x,y)
 

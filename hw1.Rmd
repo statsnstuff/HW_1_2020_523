@@ -1,23 +1,111 @@
 ---
 title: "Homework 1"
-author: ""
-date: ""
+author: "David Chester"
+date: "8.28.2020"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = NA)
+knitr::opts_chunk$set(echo = TRUE, commen = NA)
 ```
 
 ## Task 1
 
 ```{r mh_distance_function}
-mh_distance <- function() {
-  
-  # body of your function goes here...
+x<-9
+y<-NA
+options(warn=0)
+mh_distance <- function(x,y){
+  if(!is.atomic(x)){
+    warning('x is not atomic')
+    return(-1)
+  }
+  if(!is.atomic(y)){
+    warning('y is not atomic')
+    return(-1)
+    # note; we are told we are given atomic vectors for our inputs.
+    # note; vectors are atomic in R, and if, say, we had c("cat", 9), 
+    # R would coerce this vector (by definition of vectors in R) to be 
+    # atomic...it will be of type character. 
+    # To my knowledge, we cannot discern if the original elements of the 
+    # argument vectors are, in fact, all of the same type...
+    # So, no matter what our vector is, we will always get past this first check
+    # Lastly, by the description in the task, we are told the vector inputs
+    # are atomic. 
+  }
+  if(length(x)!=1){
+    warning('x is not length one')
+    return(-1)
+  }
+  if(length(y)!=1){
+    warning('y is not length one')
+    return(-1)
+  }
+  if((is.na(x)|is.nan(x)|is.infinite(x))){
+    warning('x is cannot be NA, Nan, Inf, -Inf')
+    return(-1)
+  }
+   if((is.na(y)|is.nan(y)|is.infinite(y))){
+    warning('y is cannot be NA, Nan, Inf, -Inf')
+    return(-1)
+  }
+  if(!(is.numeric(x)|is.logical(x)|is.character(x))){
+    warning('x is not of type logical, numeric, or character')
+    return(-1)
+  }
+  if(!(is.numeric(y)|is.logical(y)|is.character(y))){
+    warning('y is not of type logical, numeric, or character')
+    return(-1)
+  }
+  if(typeof(x)!=typeof(y)){
+    warning('y and x are not of the same type')
+    return(-1)
+  }
+  if(typeof(y)=="numeric"){
+    if(y %% 1!=0){
+      warning('y contains decimals')
+      return(-1)
+    }
+  }
+  if(typeof(x)=="numeric"){
+    if(x %% 1!=0){
+      warning('x contains decimals')
+      return(-1)
+    }
+  }
+  x_string<-toString(x) 
+  y_string<-toString(y) 
+  x_string<-toString(x) 
+  y_string<-toString(y) 
+  x_string_split<-strsplit(x_string,"")
+  y_string_split<-strsplit(y_string,"")
+  unlist_x_string_split<-unlist(x_string_split)
+  unlist_y_string_split<-unlist(y_string_split)
+  if(length(unlist_x_string_split)!=length(unlist_y_string_split)){
+    warning('x and y do not have the same number of digits or letters')
+    return(-1)
+  }
   
 }
+mh_distance(x,y)
+
+
+# A note, when I run this code in my local machine, I get:
+# Warning in mh_distance(x, y) :
+#  x is not of type logical, character, or numeric
+# Warning in mh_distance(x, y) :
+#  y is not of type logical, character, or numeric
+
+# However, when I run it on the server, I get:
+# x is not of type logical, character, or numericy is not of type logical, character, or numeric
+
+# I imagine this has to do with the different versions (server = 3.6.1, and local = 4.0.2)
 ```
+
+```{r}
+
+```
+
 
 
 ## Task 2

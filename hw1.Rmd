@@ -225,4 +225,15 @@ modified_vectorized_mh_distance(s,w)
 
 ## Task 4
 
-Brief write-up goes here...
+As mentioned in lecture, our code does not handle NULL values or values with special characters included in words like "can't" etc. We are robust, however, to complex number inputs. 
+
+For task one, my approach consisted of first handling all the checks before constructing the mh_distance. Note there is a discussion on atomic vectors included early on, but does not truly apply until task 3. 
+
+After checking for length, NA, NaN, Inf, -Inf, logical, numeric, or character, I then checked for decimals and for logical equivalence.
+
+I noted that it was also important to switch my options(warn=0) to obtain the output I was hoping for. However, I found conficting output syntax between working on the server and working on my local machine. Luckily, the output of the knited pdf document was the same for both. 
+
+Constructing the distance calculation required converting whatever object x and y were to strings, then spliting them by character, then unlisting them. This allowed for comparing the length of the characters between the two (I'm sure I could have used nchar() as well). From here I used a for loop utilizing seq_along as opposed to length to avoid certain looping errors. 
+
+I think the key component for getting my distance functio to work consisted of using setdiff and length. Set diff for multiple elements provides how many different elements exist between two sets. However, if I input just sets of length one each, the only possible return is 0 or 1. In the event that the lenght of my set difference was one for each character comparison of x[i], y[i], I would add 1 to my distance. 
+

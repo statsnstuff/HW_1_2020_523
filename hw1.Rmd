@@ -2,7 +2,9 @@
 title: "Homework 1"
 author: "David Chester"
 date: "8.28.2020"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -110,20 +112,19 @@ mh_distance(x,y)
 #  y is not of type logical, character, or numeric
 
 # However, when I run it on the server, I get:
-# x is not of type logical, character, or numericy is not of type logical, character, or numeric
+# x is not of type logical, character, or numeric
 
-# I imagine this has to do with the different versions (server = 3.6.1, and local = 4.0.2)
+# I imagine this has to do with the different versions 
+# (server = 3.6.1, and local = 4.0.2)
+
+# In either case, the local pdf knit and server pdf knit 
+# produces the same document
 ```
 
 
 
 ## Task 2
 
-<i>
-Be sure to remove chunk option `eval=FALSE` in the below code chunks
-once you create `mh_distance()`. Do not include this italicized
-text in your final submission.
-</i>
 
 **Initial test cases** (return non-negative modified Hamming distance)
 
@@ -152,7 +153,8 @@ mh_distance(x = "swimming", y = "winning")
 mh_distance(x = NA, y = TRUE)
 mh_distance(x = 1.5, y = 2.5)
 # I got one here, so my decimal check is not working
-# Switched from typeof(x)==numeric to is.numeric(x)
+# Switched from typeof(x)=="numeric" to is.numeric(x)
+# Issue solved
 ```
 
 Added test cases that return a value of `-1`.
@@ -168,7 +170,7 @@ mh_distance(x=00010,y=11111)
 # because this is a known property of R to be considered prior
 # to providing the arguments to the function.
 # In other words, you can't assign 00010 to x as a numeric no matter what.
-# one can use sprintf or formatC but these just convert to string type anyway.
+# One can use sprintf or formatC but these just convert to string type anyway.
 ```
 
 
@@ -182,7 +184,42 @@ w <- c(22, 50000, 451.00, 88, 0)
 ```
 
 ```{r}
-# loop goes here
+x<-c("cat", "dog", "horse", "fish")
+y<-c("cat", "hog", "houses", "chip")
+modified_vectorized_mh_distance<-function(x,y){
+print_line<-rep(NA, length(x))
+result<-rep(NA, length(x))
+if(length(x)!=length(y)){
+  warning('x and y are of different vector lengths')
+  return(-1)
+  }
+for(i in seq_along(x)){
+  result[i]<-mh_distance(x[i],y[i])
+  }
+for(i in seq_along(x)){
+  print_line[i]<-paste0("The", " modified", " Hamming", " distance", " between ", 
+                        x[i], " and ", y[i], " is ", result[i])
+  }
+for(i in seq_along(x)){
+  print(print_line[i])
+}
+}
+modified_vectorized_mh_distance(x,y)
+
+```
+
+```{r}
+# If any results are -1, then proceed to evaluate the issue 
+# by checking mh_distance(x,y)
+# This may be necessary if there a multiple lines printing -1 
+# For example; 
+mh_distance(x="horse",y="houses")
+# produces a warning that x and y do not have the 
+# same number of digits or letters
+```
+
+```{r}
+modified_vectorized_mh_distance(s,w)
 ```
 
 

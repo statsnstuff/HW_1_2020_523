@@ -12,8 +12,8 @@ knitr::opts_chunk$set(echo = TRUE, commen = NA)
 ## Task 1
 
 ```{r mh_distance_function}
-x<-"cal"
-y<-"cat"
+x<-FALSE
+y<-FALSE
 distance<-0
 options(warn=0)
 the_hamming_distance<-0
@@ -74,6 +74,12 @@ mh_distance <- function(x,y){
       warning('x contains decimals')
       return(-1)
     }
+  }
+  if(typeof(x)=="logical"&typeof(y)=="logical"){
+    if(x!=y){
+      distance<-1
+    }
+    return(distance)
   }
   x_string<-toString(x) 
   y_string<-toString(y) 

@@ -17,6 +17,7 @@ knitr::opts_chunk$set(echo = TRUE, commen = NA)
 x<-FALSE
 y<-FALSE
 distance<-0
+#nothing
 options(warn=0)
 the_hamming_distance<-0
 mh_distance <- function(x,y){
